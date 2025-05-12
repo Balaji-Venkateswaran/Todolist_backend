@@ -21,7 +21,6 @@ app.use(bodyParser.json());
 
 const allowedOrigins = [
   "http://localhost:5173",            // Local development frontend
-  "https://your-frontend-domain.com",  // Replace with your actual production frontend URL
 ];
 
 app.use(cors({
