@@ -108,9 +108,11 @@ app.use(cors({
   credentials: true,
 }));
 
-
 mongoose
-  .connect("mongodb://localhost:27017/todoapp", {
+  // .connect("mongodb://localhost:27017/todoapp", {
+    // .connect("mongodb+srv://gamerjouer:Logan@2014@cluster.7agom4o.mongodb.net/?retryWrites=true&w=majority&appName=Cluster", {
+      mongoose.connect("mongodb+srv://gamerjouer:Logan%402014@cluster.7agom4o.mongodb.net/?retryWrites=true&w=majority&appName=Cluster", {
+
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
