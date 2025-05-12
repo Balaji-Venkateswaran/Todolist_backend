@@ -13,9 +13,26 @@ const app = express();
 app.use(bodyParser.json());
 // app.use(cors());
 
+// app.use(cors({
+//   origin: "http://localhost:5173",
+//   credentials: true,
+// }));
+
+
+const allowedOrigins = [
+  "http://localhost:5173",            // Local development frontend
+  "https://your-frontend-domain.com",  // Replace with your actual production frontend URL
+];
+
 app.use(cors({
-  origin: "http://localhost:5173",
-  credentials: true,
+  origin: (origin, callback) => {
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true); // Allow request
+    } else {
+      callback(new Error("Not allowed by CORS")); // Reject request
+    }
+  },
+  credentials: true,  // Allow cookies or authentication headers
 }));
 
 mongoose
