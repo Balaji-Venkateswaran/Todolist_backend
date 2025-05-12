@@ -102,4 +102,4 @@ app.use("/api/todos", todoRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/password", passwordRoutes);
 
-module.exports.handler = serverless(app);  // Export as serverless function
+module.exports.handler = serverless(app);  

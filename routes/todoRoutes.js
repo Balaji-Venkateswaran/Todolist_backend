@@ -1,5 +1,3 @@
-
-
 const express = require("express");
 const Todo = require("../models/todoModel");
 
@@ -21,7 +19,8 @@ router.get("/paginated", async (req, res) => {
   const limitNumber = parseInt(limit);
   const skip = (pageNumber - 1) * limitNumber;
 
-  const filter = completed !== undefined ? { completed: completed === "true" } : {};
+  const filter =
+    completed !== undefined ? { completed: completed === "true" } : {};
 
   try {
     const todos = await Todo.find(filter)
