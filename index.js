@@ -11,17 +11,15 @@ const passwordRoutes = require("./routes/passwordRoutes");
 const app = express();
 
 app.use(bodyParser.json());
-// app.use(cors());
+app.use(cors());
 
-app.use(cors({
-  origin: "https://jouertodolist.netlify.app/",
-  credentials: true,
-}));
+// app.use(cors({
+//   origin: "http://localhost:5173",
+//   credentials: true,
+// }));
 
 mongoose
-  // .connect("mongodb://localhost:27017/todoapp", {
-    // .connect("mongodb+srv://gamerjouer:Logan@2014@cluster.7agom4o.mongodb.net/?retryWrites=true&w=majority&appName=Cluster", {
-    .connect("mongodb+srv://gamerjouer:Logan%402014@cluster.7agom4o.mongodb.net/?retryWrites=true&w=majority&appName=Cluster", {
+   .connect("mongodb+srv://gamerjouer:Logan%402014@cluster.7agom4o.mongodb.net/?retryWrites=true&w=majority&appName=Cluster", {
 
     useNewUrlParser: true,
     useUnifiedTopology: true,
