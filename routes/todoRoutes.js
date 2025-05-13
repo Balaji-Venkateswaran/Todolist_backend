@@ -99,28 +99,15 @@ const Todo = require("../models/todoModel");
 const router = express.Router();
 
 
-function convertToIST(date) {
-  return new Date(date).toLocaleString("en-IN", {
-    timeZone: "Asia/Kolkata",
-    hour12: true,
-  });
-}
-
 router.get("/", async (req, res) => {
   try {
     const todos = await Todo.find().sort({ dueDate: -1 });
-
-    const todosWithIST = todos.map(todo => ({
-      ...todo._doc,
-      dueDateIST: todo.dueDate ? convertToIST(todo.dueDate) : null,
-      completedAtIST: todo.completedAt ? convertToIST(todo.completedAt) : null,
-    }));
-
-    res.json(todosWithIST);
+    res.json(todos);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
+
 router.get("/paginated", async (req, res) => {
   const { page = 1, limit = 5, completed } = req.query;
 
@@ -149,14 +136,16 @@ router.get("/paginated", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
-
 router.post("/", async (req, res) => {
   const { title, description, dueDate } = req.body;
   try {
+    const istOffsetMs = 5.5 * 60 * 60 * 1000;
+    const utcDueDate = dueDate ? new Date(new Date(dueDate).getTime() - istOffsetMs) : null;
+
     const newTodo = new Todo({
       title,
       description,
-      dueDate: dueDate ? new Date(dueDate) : null,
+      dueDate: utcDueDate,
     });
     await newTodo.save();
     res.json(newTodo);
@@ -170,12 +159,15 @@ router.put("/:id", async (req, res) => {
   const { title, description, dueDate, completed } = req.body;
 
   try {
+    const istOffsetMs = 5.5 * 60 * 60 * 1000;
+    const utcDueDate = dueDate ? new Date(new Date(dueDate).getTime() - istOffsetMs) : null;
+
     const updatedTodo = await Todo.findByIdAndUpdate(
       id,
       {
         title,
         description,
-        dueDate: dueDate ? new Date(dueDate) : null,
+        dueDate: utcDueDate,
         completed,
         completedAt: completed ? new Date() : null,
       },
