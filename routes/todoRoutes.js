@@ -91,13 +91,10 @@
 
 // module.exports = router;
 
-
-
 const express = require("express");
 const Todo = require("../models/todoModel");
 
 const router = express.Router();
-
 
 router.get("/", async (req, res) => {
   try {
@@ -140,7 +137,9 @@ router.post("/", async (req, res) => {
   const { title, description, dueDate } = req.body;
   try {
     const istOffsetMs = 5.5 * 60 * 60 * 1000;
-    const utcDueDate = dueDate ? new Date(new Date(dueDate).getTime() - istOffsetMs) : null;
+    const utcDueDate = dueDate
+      ? new Date(new Date(dueDate).getTime() - istOffsetMs)
+      : null;
 
     const newTodo = new Todo({
       title,
@@ -160,7 +159,9 @@ router.put("/:id", async (req, res) => {
 
   try {
     const istOffsetMs = 5.5 * 60 * 60 * 1000;
-    const utcDueDate = dueDate ? new Date(new Date(dueDate).getTime() - istOffsetMs) : null;
+    const utcDueDate = dueDate
+      ? new Date(new Date(dueDate).getTime() - istOffsetMs)
+      : null;
 
     const updatedTodo = await Todo.findByIdAndUpdate(
       id,
