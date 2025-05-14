@@ -6,13 +6,12 @@ const cors = require("cors");
 const authRoutes = require("./routes/authRoutes");
 const todoRoutes = require("./routes/todoRoutes");
 const passwordRoutes = require("./routes/passwordRoutes");
-require("dotenv").config();
 
 
 const app = express();
 
 app.use(bodyParser.json());
-// app.use(cors());
+app.use(cors());
 
 
 app.use(cors({
