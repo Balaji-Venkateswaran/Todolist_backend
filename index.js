@@ -11,13 +11,13 @@ const passwordRoutes = require("./routes/passwordRoutes");
 const app = express();
 
 app.use(bodyParser.json());
-app.use(cors());
-
+// app.use(cors());
 
 app.use(cors({
-  origin: process.env.FRONTEND_URL,
+  origin: "https://jouertodolist.netlify.app",
   credentials: true,
 }));
+
 // app.use(cors({
 //   origin: "http://localhost:5173",
 //   credentials: true,
