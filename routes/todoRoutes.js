@@ -107,6 +107,8 @@ router.get("/", async (req, res) => {
 
 router.get("/paginated", async (req, res) => {
   const { page = 1, limit = 5, completed } = req.query;
+  console.log("Received request with params:", req.query); // Add logging
+
 
   const pageNumber = parseInt(page);
   const limitNumber = parseInt(limit);
@@ -120,6 +122,8 @@ router.get("/paginated", async (req, res) => {
       .sort({ dueDate: -1 })
       .skip(skip)
       .limit(limitNumber);
+      console.log("Fetched todos:", todos); // Log fetched data
+
 
     const totalTodos = await Todo.countDocuments(filter);
 
@@ -130,6 +134,8 @@ router.get("/paginated", async (req, res) => {
       totalItems: totalTodos,
     });
   } catch (err) {
+    console.log("Error fetching todos:", err); // Log errors
+
     res.status(500).json({ error: err.message });
   }
 });
