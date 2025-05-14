@@ -27,7 +27,7 @@ router.post("/forgot-password", async (req, res) => {
     user.resetTokenExpiration = Date.now() + 3600000;
     await user.save();
 
-    const resetLink = `http://localhost:5173/reset-password/${token}`;
+    const resetLink = ` /reset-password/${token}`;
     console.log("Reset link:", resetLink);
 
     await transporter.sendMail({
